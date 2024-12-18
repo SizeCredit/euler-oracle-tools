@@ -100,8 +100,8 @@ export const Main = () => {
   const [targetTwapValue, setTargetTwapValue] = useState();
   const [targetTwapSpot, setTargetTwapSpot] = useState("");
 
-  const [reportBorrowFactor, setReportBorrowFactor] = useState(0.91);
-  const [reportCollateralFactor, setReportCollateralFactor] = useState(0.88);
+  const [reportBorrowFactor, setReportBorrowFactor] = useState(1);
+  const [reportCollateralFactor, setReportCollateralFactor] = useState(1/1.5);
 
   const [error, setError] = useState();
   const [errorOpen, setErrorOpen] = useState(false);
