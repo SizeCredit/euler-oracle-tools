@@ -50,7 +50,7 @@ import {
   computeUniV3PoolAddress,
   sqrtPriceX96ToPrice,
   isInverted,
-  getMarketConfig,
+  // getMarketConfig,
   getTwapTargetRatio,
   getTwapAfterAttack,
   getMinMaxTargetTwapSpot,
@@ -59,8 +59,10 @@ import {
   binarySearchTradeValues,
   MAX_TICK_PRICE,
   MIN_TICK_PRICE,
-  USDC_ADDRESS,
   WETH_ADDRESS,
+  UNISWAP_POOL_URL,
+  BLOCK_EXPLORER_URL,
+  customTokens,
   //   getLiquidityProfile,
   //   getLiquidityStats,
   //   parseLiquidityRange,
@@ -80,7 +82,7 @@ export const Main = () => {
   const [cardinality, setCardinality] = useState();
   const [poolFees, setPoolFees] = useState([]);
 
-  const [targetPriceImpact, setTargetPriceImpact] = useState(90);
+  const [targetPriceImpact, setTargetPriceImpact] = useState(30);
   const [targetPriceImpactLoading, setTargetPriceImpactLoading] =
     useState(false);
   const [targetPriceImpactValue, setTargetPriceImpactValue] = useState();
@@ -90,7 +92,7 @@ export const Main = () => {
   const [targetPriceLoading, setTargetPriceLoading] = useState(false);
   const [targetPriceValue, setTargetPriceValue] = useState();
 
-  const [window, setWindow] = useState(144);
+  const [window, setWindow] = useState(900);
   const [attackBlocks, setAttackBlocks] = useState(1);
   const [targetEthTwap, setTargetEthTwap] = useState("");
   const [targetUsdTwap, setTargetUsdTwap] = useState("");
@@ -171,9 +173,11 @@ export const Main = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get(
-        "https://raw.githubusercontent.com/euler-xyz/euler-tokenlist/master/euler-tokenlist.json"
-      ),
+      process.env.REACT_APP_USE_CUSTOM_TOKENLIST
+        ? Promise.resolve({data: {tokens: customTokens}})
+        : axios.get(
+            "https://raw.githubusercontent.com/euler-xyz/euler-tokenlist/master/euler-tokenlist.json"
+          ),
       axios.get(
         `https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD`
       ),
@@ -1121,14 +1125,14 @@ export const Main = () => {
                   <Box display="flex">
                     <Link
                       target="_blank"
-                      href={`https://etherscan.io/token/${token.address}`}
+                      href={`${BLOCK_EXPLORER_URL}/${token.address}`}
                     >
                       Token
                     </Link>
                     <Link
                       ml={1}
                       target="_blank"
-                      href={`https://info.uniswap.org/#/pools/${computeUniV3PoolAddress(
+                      href={`${UNISWAP_POOL_URL}/${computeUniV3PoolAddress(
                         token.address,
                         WETH_ADDRESS,
                         fee
@@ -1253,10 +1257,10 @@ export const Main = () => {
                               {numberFormatText(row.pump.value)}
                             </TableCell>
                             <TableCell align="right" key={Math.random()}>
-                              {row.pump.priceImpact}%
+                              {Number(row.pump.priceImpact).toFixed(2)}%
                             </TableCell>
                             <TableCell align="right" key={Math.random()}>
-                              {row.dump.priceImpact}%
+                              {Number(row.dump.priceImpact).toFixed(2)}%
                             </TableCell>
                           </TableRow>
                         )

@@ -12,6 +12,13 @@ Create `.env` file in the root folder with your provider URL
 REACT_APP_ETHEREUM_NETWORK_HTTP=
 ```
 
+Optional prameters:
+
+```
+REACT_APP_NETWORK=base
+REACT_APP_USE_CUSTOM_TOKENLIST=true
+```
+
 ## Run dev server
 
     npm start

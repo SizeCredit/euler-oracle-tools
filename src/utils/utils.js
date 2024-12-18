@@ -24,11 +24,11 @@ const factoryContract = new Contract(
   UNISWAP_V3_FACTORY_ABI,
   provider
 );
-const eulerViewContract = new Contract(
-  EULER_VIEW_ADDRESS,
-  eulerViewArtifacts.abi,
-  provider
-);
+// const eulerViewContract = new Contract(
+//   EULER_VIEW_ADDRESS,
+//   eulerViewArtifacts.abi,
+//   provider
+// );
 
 Decimal.set({ precision: 50 });
 
@@ -183,23 +183,23 @@ export const computeUniV3PoolAddress = (tokenA, tokenB, fee) => {
   );
 };
 
-export const getMarketConfig = async (underlyingAddress) => {
-  const res = await eulerViewContract.callStatic.doQuery({
-    eulerContract: EULER_CONTRACT_ADDRESS,
-    account: constants.AddressZero,
-    markets: [underlyingAddress],
-  });
+// export const getMarketConfig = async (underlyingAddress) => {
+//   const res = await eulerViewContract.callStatic.doQuery({
+//     eulerContract: EULER_CONTRACT_ADDRESS,
+//     account: constants.AddressZero,
+//     markets: [underlyingAddress],
+//   });
 
-  if (res.markets[0].config.eTokenAddress === constants.AddressZero)
-    return null;
+//   if (res.markets[0].config.eTokenAddress === constants.AddressZero)
+//     return null;
 
-  const factorScale = 4e9;
-  return {
-    borrowFactor: res.markets[0].config.borrowFactor / factorScale,
-    collateralFactor: res.markets[0].config.collateralFactor / factorScale,
-    twapWindowSeconds: res.markets[0].config.twapWindow,
-  };
-};
+//   const factorScale = 4e9;
+//   return {
+//     borrowFactor: res.markets[0].config.borrowFactor / factorScale,
+//     collateralFactor: res.markets[0].config.collateralFactor / factorScale,
+//     twapWindowSeconds: res.markets[0].config.twapWindow,
+//   };
+// };
 
 export const getMinMaxTargetTwapSpot = (
   currPrice,
