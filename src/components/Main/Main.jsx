@@ -106,7 +106,7 @@ export const Main = () => {
   const [error, setError] = useState();
   const [errorOpen, setErrorOpen] = useState(false);
 
-  const [usdcMarketConfig, setUsdcMarketConfig] = useState();
+  // const [usdcMarketConfig, setUsdcMarketConfig] = useState();
   const [marketConfig, setMarketConfig] = useState();
   const [reportOpen, setReportOpen] = useState(false);
   const [reportData, setReportData] = useState();
@@ -186,7 +186,7 @@ export const Main = () => {
       setTokenList(sortBy(result1.data.tokens, "symbol"));
       setEthPrice(Number(result2.data.USD));
       // setUsdcMarketConfig(result3);
-      setUsdcMarketConfig({ borrowFactor: 0.95 });
+      // setUsdcMarketConfig({ borrowFactor: 1 });
     });
   }, []);
 
@@ -425,7 +425,7 @@ export const Main = () => {
         utils.formatEther(currPrice.toString())
       );
       const breakEvenPumpTwapChange =
-        1 / (reportCollateralFactor * usdcMarketConfig.borrowFactor) - 1;
+        1 / (reportCollateralFactor * reportBorrowFactor) - 1;
       const breakEvenDumpTwapChange = breakEvenPumpTwapChange; // 1 / (reportBorrowFactor * usdcMarketConfig.collateralFactor) - 1;
 
       let progress = 0;
@@ -1357,7 +1357,7 @@ export const Main = () => {
             progress={reportProgress}
             collateralFactor={reportCollateralFactor}
             borrowFactor={reportBorrowFactor}
-            usdcMarketConfig={usdcMarketConfig}
+            // usdcMarketConfig={usdcMarketConfig}
             data={reportData}
             currPrice={currPrice}
             ethPrice={ethPrice}

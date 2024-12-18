@@ -27,7 +27,7 @@ export const LiquidityReport = ({
   data,
   collateralFactor,
   borrowFactor,
-  usdcMarketConfig,
+  // usdcMarketConfig,
   currPrice,
   ethPrice,
   token,
@@ -92,7 +92,7 @@ export const LiquidityReport = ({
               </Grid>
               <Grid item xs={4}>
                 {numberFormatText(
-                  (1 / (collateralFactor * usdcMarketConfig.borrowFactor) - 1) *
+                  (1 / (collateralFactor * borrowFactor) - 1) *
                     100
                 )}
                 %
@@ -102,7 +102,7 @@ export const LiquidityReport = ({
               </Grid>
               <Grid item xs={4}>
                 {numberFormatText(
-                  (1 / (collateralFactor * usdcMarketConfig.borrowFactor) - 1) *
+                  (1 / (collateralFactor * borrowFactor) - 1) *
                     100
                 )}
                 %
