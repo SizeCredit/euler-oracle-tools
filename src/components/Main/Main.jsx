@@ -962,7 +962,7 @@ export const Main = () => {
           <FormControl fullWidth>
             <TextField
               id="target-twap-window"
-              label="TWAP window"
+              label="TWAP window (blocks)"
               variant="outlined"
               value={window}
               onChange={handleWindow}
